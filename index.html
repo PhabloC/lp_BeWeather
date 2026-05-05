@@ -3,23 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BeWeather | Estação Meteorológica para o Agronegócio</title>
-
+    <title>Austen Engenharia | Óleo e Gás</title>
     <style>
       :root {
-        --green: #1f8f3a;
-        --green-dark: #12642a;
-        --green-light: #eaf7ee;
-        --blue: #062b57;
-        --blue-dark: #061e3a;
-        --text: #132238;
-        --muted: #5f6f80;
-        --line: #dce7df;
+        --navy: #061d35;
+        --navy-2: #082947;
+        --blue: #0d3b66;
+        --green: #39b54a;
+        --green-dark: #259339;
+        --text: #0c1f35;
+        --muted: #5e6b7a;
+        --light: #f5f7fa;
+        --line: #dce2ea;
         --white: #ffffff;
-        --bg-soft: #f4fbf6;
-        --shadow: 0 18px 45px rgba(10, 45, 35, 0.12);
-        --radius: 22px;
-        --container: 1180px;
+        --shadow: 0 18px 45px rgba(6, 29, 53, 0.12);
+        --radius: 18px;
+        --radius-sm: 12px;
+        --max: 1180px;
       }
 
       * {
@@ -33,10 +33,15 @@
       }
 
       body {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: Inter, Arial, Helvetica, sans-serif;
         color: var(--text);
         background: var(--white);
         line-height: 1.5;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
       }
 
       a {
@@ -45,7 +50,7 @@
       }
 
       .container {
-        width: min(100% - 40px, var(--container));
+        width: min(var(--max), calc(100% - 48px));
         margin: 0 auto;
       }
 
@@ -53,1373 +58,936 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 12px;
         border: 0;
-        border-radius: 12px;
-        padding: 15px 24px;
-        background: var(--green);
-        color: var(--white);
+        border-radius: 10px;
         font-weight: 800;
         cursor: pointer;
-        box-shadow: 0 12px 28px rgba(31, 143, 58, 0.24);
-        transition: 0.2s ease;
-        text-align: center;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
+        white-space: nowrap;
       }
 
       .btn:hover {
-        background: var(--green-dark);
         transform: translateY(-2px);
+        box-shadow: 0 14px 28px rgba(57, 181, 74, 0.22);
       }
 
-      .btn.small {
-        padding: 11px 18px;
-        font-size: 14px;
-        border-radius: 10px;
+      .btn-primary {
+        background: linear-gradient(135deg, var(--green), var(--green-dark));
+        color: var(--white);
+        padding: 18px 28px;
+        font-size: 1rem;
+      }
+
+      .btn-secondary {
+        border: 1px solid var(--navy);
+        color: var(--navy);
+        background: transparent;
+        padding: 15px 26px;
+        font-size: 0.98rem;
+      }
+
+      .section {
+        padding: 76px 0;
+      }
+
+      .section-light {
+        background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+      }
+
+      .eyebrow {
+        color: var(--green);
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        margin-bottom: 12px;
       }
 
       .section-title {
-        color: var(--blue);
-        font-size: clamp(30px, 4vw, 46px);
-        line-height: 1.08;
+        font-size: clamp(2rem, 3.2vw, 3rem);
+        line-height: 1.12;
         letter-spacing: -0.04em;
-        margin-bottom: 16px;
+        color: var(--navy);
       }
 
-      .section-subtitle {
+      .section-copy {
         color: var(--muted);
-        font-size: 18px;
+        font-size: 1.06rem;
         max-width: 760px;
+        margin: 18px auto 0;
       }
 
       .center {
         text-align: center;
       }
 
-      .center .section-subtitle {
-        margin: 0 auto;
-      }
-
-      /* Header */
-      .header {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        background: rgba(255, 255, 255, 0.94);
-        backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(220, 231, 223, 0.9);
-      }
-
-      .nav {
-        height: 76px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-      }
-
-      .logo {
-        font-size: 30px;
-        font-weight: 900;
-        letter-spacing: -1px;
-        color: var(--blue);
-      }
-
-      .logo span {
-        color: var(--green);
-      }
-
-      .menu {
-        display: flex;
-        align-items: center;
-        gap: 34px;
-        color: #25364a;
-        font-weight: 700;
-        font-size: 14px;
-      }
-
-      .menu a:hover {
-        color: var(--green);
-      }
-
-      /* Hero */
+      /* HERO */
       .hero {
+        min-height: 760px;
+        color: var(--white);
+        position: relative;
         overflow: hidden;
+        display: flex;
+        align-items: stretch;
         background:
-          radial-gradient(
-            circle at 12% 18%,
-            rgba(31, 143, 58, 0.1),
-            transparent 30%
+          linear-gradient(
+            90deg,
+            rgba(3, 18, 35, 0.96) 0%,
+            rgba(3, 18, 35, 0.82) 42%,
+            rgba(3, 18, 35, 0.2) 78%
           ),
-          linear-gradient(90deg, #ffffff 0%, #ffffff 42%, #eaf6ff 100%);
+          url("https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1800&q=80")
+            center/cover no-repeat;
       }
 
-      .hero-grid {
-        min-height: 700px;
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 76% 38%,
+          rgba(255, 255, 255, 0.08),
+          transparent 30%
+        );
+        pointer-events: none;
+      }
+
+      .hero .container {
+        position: relative;
+        z-index: 2;
         display: grid;
-        grid-template-columns: 0.95fr 1.05fr;
         align-items: center;
-        gap: 46px;
-        padding: 78px 0;
+        min-height: 760px;
       }
 
-      .eyebrow {
+      .hero-content {
+        max-width: 650px;
+        padding: 72px 0 54px;
+      }
+
+      .brand-mark {
         display: inline-flex;
         align-items: center;
-        color: var(--green-dark);
-        background: var(--green-light);
-        border: 1px solid #bfe8c9;
+        gap: 10px;
+        margin-bottom: 34px;
+        padding: 8px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
         border-radius: 999px;
-        padding: 7px 13px;
-        font-size: 13px;
-        font-weight: 800;
-        margin-bottom: 18px;
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(10px);
+        color: rgba(255, 255, 255, 0.86);
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+
+      .brand-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 6px rgba(57, 181, 74, 0.18);
       }
 
       .hero h1 {
-        color: var(--blue);
-        font-size: clamp(42px, 5vw, 68px);
-        line-height: 0.98;
-        letter-spacing: -0.06em;
+        font-size: clamp(2.65rem, 6vw, 5.7rem);
+        line-height: 0.96;
+        letter-spacing: -0.065em;
+        max-width: 800px;
         margin-bottom: 24px;
       }
 
       .hero p {
-        color: #395066;
-        font-size: 18px;
-        max-width: 560px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: clamp(1.04rem, 1.45vw, 1.28rem);
+        max-width: 590px;
         margin-bottom: 30px;
       }
 
-      .badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 24px;
-      }
-
-      .badge {
+      .support-line {
         display: flex;
         align-items: center;
-        gap: 9px;
-        background: rgba(255, 255, 255, 0.86);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 12px 14px;
-        color: var(--blue);
-        font-size: 13px;
-        font-weight: 800;
-        box-shadow: 0 8px 20px rgba(9, 58, 52, 0.06);
-      }
-
-      .icon-circle {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--green-light);
-        color: var(--green);
-        font-weight: 900;
-        flex: 0 0 auto;
-      }
-
-      .hero-visual {
-        position: relative;
-        min-height: 575px;
-        border-radius: 30px;
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        background:
-          linear-gradient(
-            180deg,
-            rgba(10, 52, 90, 0.05),
-            rgba(10, 52, 90, 0.08)
-          ),
-          url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1300&q=80")
-            center/cover;
-      }
-
-      .hero-visual::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.05),
-          rgba(0, 0, 0, 0.18)
-        );
-      }
-
-      .weather-station {
-        position: absolute;
-        left: 12%;
-        bottom: 9%;
-        width: 210px;
-        height: 390px;
-        z-index: 2;
-      }
-
-      .station-pole {
-        position: absolute;
-        left: 97px;
-        top: 22px;
-        width: 8px;
-        height: 350px;
-        background: #e8edf2;
-        border-radius: 999px;
-        box-shadow: inset 0 0 0 1px #b7c3cf;
-      }
-
-      .station-top {
-        position: absolute;
-        left: 52px;
-        top: 0;
-        width: 110px;
-        height: 48px;
-        border-top: 6px solid #10243d;
-      }
-
-      .station-top::before,
-      .station-top::after {
-        content: "";
-        position: absolute;
-        top: -14px;
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background: #10243d;
-      }
-
-      .station-top::before {
-        left: -8px;
-      }
-
-      .station-top::after {
-        right: -8px;
-      }
-
-      .sensor {
-        position: absolute;
-        left: 58px;
-        top: 112px;
-        width: 84px;
-        height: 78px;
-        background: repeating-linear-gradient(
-          #f3f6f7 0 10px,
-          #cfd7dd 11px 14px
-        );
-        border-radius: 16px;
-        border: 1px solid #d6dde3;
-      }
-
-      .solar {
-        position: absolute;
-        left: 13px;
-        top: 205px;
-        width: 118px;
-        height: 76px;
-        transform: rotate(-12deg);
-        background: linear-gradient(135deg, #0c315e, #1d6ca3);
-        border: 4px solid #f1f6f7;
-        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
-      }
-
-      .solar::before {
-        content: "";
-        position: absolute;
-        inset: 8px;
-        background-image:
-          linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.35) 1px,
-            transparent 1px
-          ),
-          linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px);
-        background-size: 22px 18px;
-      }
-
-      .station-box {
-        position: absolute;
-        left: 45px;
-        top: 286px;
-        width: 128px;
-        height: 96px;
-        background: #fff;
-        border-radius: 6px;
-        box-shadow: 0 13px 28px rgba(0, 0, 0, 0.22);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 900;
-        color: var(--blue);
-      }
-
-      .station-box span {
-        color: var(--green);
-      }
-
-      .producer-card {
-        position: absolute;
-        right: 28px;
-        bottom: 28px;
-        width: 260px;
-        background: rgba(255, 255, 255, 0.93);
-        border: 1px solid rgba(255, 255, 255, 0.7);
-        border-radius: 20px;
-        padding: 18px;
-        z-index: 3;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
-      }
-
-      .producer-card strong {
-        color: var(--blue);
-        display: block;
-        margin-bottom: 12px;
-      }
-
-      .app-line {
-        height: 10px;
-        border-radius: 999px;
-        background: #dfe9f0;
-        margin-bottom: 10px;
-        overflow: hidden;
-      }
-
-      .app-line span {
-        display: block;
-        height: 100%;
-        width: var(--w);
-        background: var(--green);
-        border-radius: inherit;
-      }
-
-      /* Benefits */
-      .benefits {
-        padding: 86px 0;
-        background: linear-gradient(180deg, #f4fbf6 0%, #ffffff 100%);
-      }
-
-      .benefit-grid {
-        margin-top: 48px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 22px;
-      }
-
-      .benefit-card {
-        display: grid;
-        grid-template-columns: 74px 1fr;
-        gap: 20px;
-        align-items: start;
-        background: var(--white);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        padding: 32px;
-        box-shadow: 0 14px 30px rgba(28, 70, 47, 0.07);
-        text-align: left;
-      }
-
-      .benefit-card .card-icon {
-        width: 64px;
-        height: 64px;
-        border-radius: 18px;
-        background: var(--green-light);
-        color: var(--green);
-        display: grid;
-        place-items: center;
-        font-size: 34px;
-      }
-
-      .benefit-card h3 {
-        color: var(--blue);
-        font-size: 22px;
-        margin-bottom: 10px;
-      }
-
-      .benefit-card p {
-        color: #495d6d;
-      }
-
-      .section-cta {
-        margin-top: 36px;
-        text-align: center;
-      }
-
-      /* Technology */
-      .tech {
-        padding: 90px 0;
-        background: #fff;
-      }
-
-      .split {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 58px;
-        align-items: center;
-      }
-
-      .tech-visual {
-        position: relative;
-        min-height: 560px;
-        border-radius: 30px;
-        overflow: hidden;
-        background:
-          radial-gradient(
-            circle at 70% 30%,
-            rgba(255, 255, 255, 0.82),
-            transparent 16%
-          ),
-          linear-gradient(
-            180deg,
-            rgba(12, 61, 115, 0.04),
-            rgba(31, 143, 58, 0.04)
-          ),
-          url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80")
-            center/cover;
-        box-shadow: var(--shadow);
-      }
-
-      .tech-visual::after {
-        content: "☁";
-        position: absolute;
-        right: 50px;
-        top: 70px;
-        color: rgba(255, 255, 255, 0.92);
-        font-size: 92px;
-        font-weight: 900;
-        text-shadow: 0 6px 18px rgba(6, 43, 87, 0.25);
-      }
-
-      .tech-visual .weather-station {
-        left: 20%;
-        bottom: 7%;
-        transform: scale(1.1);
-        transform-origin: left bottom;
-      }
-
-      .tech-list {
-        list-style: none;
-        margin: 26px 0;
-        display: grid;
-        gap: 14px;
-      }
-
-      .tech-list li {
-        display: flex;
-        gap: 12px;
-        align-items: flex-start;
-        color: #33485d;
-        font-weight: 700;
+        gap: 10px;
+        margin-top: 18px;
+        color: rgba(255, 255, 255, 0.86);
+        font-weight: 600;
       }
 
       .check {
         width: 24px;
         height: 24px;
         border-radius: 50%;
-        background: var(--green);
-        color: white;
         display: inline-grid;
         place-items: center;
-        font-size: 14px;
+        border: 2px solid var(--green);
+        color: var(--green);
+        font-size: 0.8rem;
         flex: 0 0 auto;
       }
 
-      .cloud-box {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        background: var(--blue);
-        color: white;
-        border-radius: 16px;
-        padding: 23px;
-        margin: 28px 0;
-        box-shadow: 0 16px 32px rgba(6, 43, 87, 0.16);
+      .hero-benefits {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        max-width: 640px;
+        margin-top: 38px;
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
+        padding-top: 26px;
       }
 
-      .cloud-box .cloud-icon {
-        font-size: 45px;
+      .hero-benefit {
+        min-height: 92px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .hero-benefit:last-child {
+        border-right: 0;
+      }
+
+      .hero-benefit .icon {
+        color: var(--green);
+        font-size: 2.1rem;
         line-height: 1;
       }
 
-      .cloud-box strong {
-        font-size: 20px;
-        line-height: 1.22;
-        display: block;
+      .hero-benefit strong {
+        font-size: 0.98rem;
       }
 
-      /* Integration */
-      .integration {
-        padding: 90px 0;
-        background: linear-gradient(135deg, #f2faf6 0%, #f4f8ff 100%);
+      /* CARDS */
+      .cards-3,
+      .cards-4 {
+        display: grid;
+        gap: 24px;
+        margin-top: 46px;
       }
 
-      .integration-card {
-        border: 1px solid #b9dcc4;
-        background: rgba(255, 255, 255, 0.76);
-        border-radius: 18px;
-        padding: 24px;
-        margin-top: 28px;
-        max-width: 420px;
-        box-shadow: 0 12px 30px rgba(10, 55, 43, 0.08);
+      .cards-3 {
+        grid-template-columns: repeat(3, 1fr);
       }
 
-      .integration-card small {
-        display: block;
+      .cards-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 34px 26px;
+        box-shadow: 0 10px 24px rgba(6, 29, 53, 0.05);
+      }
+
+      .metric-card {
+        min-height: 250px;
         text-align: center;
-        color: var(--muted);
-        font-weight: 900;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .round-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: var(--navy);
+        color: var(--white);
+        display: inline-grid;
+        place-items: center;
+        font-size: 2rem;
+        margin-bottom: 18px;
+      }
+
+      .metric-card h3 {
+        font-size: 2.75rem;
+        line-height: 1;
+        color: var(--navy);
+        letter-spacing: -0.04em;
         margin-bottom: 12px;
       }
 
-      .integration-card strong {
+      .metric-card p,
+      .solution-card p,
+      .feature p {
+        color: var(--muted);
+      }
+
+      .partners {
+        margin-top: 42px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .partners-label {
+        width: min(620px, 100%);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: #526070;
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .partners-label::before,
+      .partners-label::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: #c9d1dc;
+      }
+
+      .partner-badges {
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .partner-badge {
+        min-width: 220px;
+        padding: 18px 32px;
+        border-radius: 10px;
+        border: 1px solid #cdd5df;
+        background: var(--white);
+        text-align: center;
+        color: var(--blue);
+        font-size: 1.18rem;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+      }
+
+      .partner-badge.green {
+        color: #11833b;
+      }
+
+      .solution-card {
+        text-align: center;
+        min-height: 292px;
+      }
+
+      .solution-card h3 {
+        color: var(--navy);
+        font-size: 1.35rem;
+        line-height: 1.18;
+        margin-bottom: 12px;
+      }
+
+      .solution-cta {
+        text-align: center;
+        margin-top: 34px;
+      }
+
+      /* SERVICES */
+      .services-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .image-card {
+        overflow: hidden;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        min-height: 460px;
+        background:
+          linear-gradient(rgba(8, 41, 71, 0.05), rgba(8, 41, 71, 0.05)),
+          url("https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1200&q=80")
+            center/cover no-repeat;
+      }
+
+      .features {
+        margin-top: 32px;
+        display: grid;
+        gap: 24px;
+      }
+
+      .feature {
+        display: grid;
+        grid-template-columns: 64px 1fr;
+        gap: 18px;
+        align-items: start;
+      }
+
+      .feature .round-icon {
+        width: 58px;
+        height: 58px;
+        font-size: 1.45rem;
+        margin: 0;
+      }
+
+      .feature h3 {
+        color: var(--navy);
+        font-size: 1.08rem;
+        margin-bottom: 4px;
+      }
+
+      .benefit-strip {
+        margin-top: 44px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--navy), var(--navy-2));
+        color: var(--white);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .strip-item {
+        padding: 28px 24px;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 14px;
-        font-size: 28px;
-        color: var(--blue);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        font-weight: 900;
+        font-size: 1.05rem;
       }
 
-      .integration-card strong span {
+      .strip-item:last-child {
+        border-right: 0;
+      }
+
+      .strip-icon {
         color: var(--green);
+        font-size: 2rem;
       }
 
-      .monitor {
-        border-radius: 28px;
-        background: #111827;
-        padding: 18px 18px 28px;
-        box-shadow: 0 30px 65px rgba(8, 36, 61, 0.22);
-        position: relative;
-      }
-
-      .monitor::after {
-        content: "";
-        position: absolute;
-        width: 190px;
-        height: 38px;
-        background: linear-gradient(90deg, #dbe3ea, #f7fafc, #dbe3ea);
-        bottom: -38px;
-        left: 50%;
-        transform: translateX(-50%);
-        clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
-      }
-
-      .screen {
-        min-height: 390px;
-        background: #f5f8fb;
-        border-radius: 18px;
-        overflow: hidden;
-        display: grid;
-        grid-template-columns: 160px 1fr;
-      }
-
-      .sidebar {
-        background: #173b63;
-        color: rgba(255, 255, 255, 0.88);
-        padding: 22px 16px;
-        font-size: 12px;
-      }
-
-      .side-logo {
-        font-weight: 900;
-        margin-bottom: 22px;
-        color: white;
-      }
-
-      .side-item {
-        padding: 8px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .dashboard {
-        padding: 20px;
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 14px;
-      }
-
-      .dash-card {
-        background: white;
-        border-radius: 14px;
-        border: 1px solid #e4edf3;
-        padding: 16px;
-        box-shadow: 0 6px 18px rgba(8, 36, 61, 0.05);
-      }
-
-      .dash-card h4 {
-        color: var(--blue);
-        font-size: 13px;
-        margin-bottom: 8px;
-      }
-
-      .bar-chart {
-        height: 90px;
-        display: flex;
-        align-items: flex-end;
-        gap: 6px;
-      }
-
-      .bar {
-        width: 12px;
-        background: #65a8e6;
-        border-radius: 5px 5px 0 0;
-        height: var(--h);
-      }
-
-      .weather-now,
-      .metric {
-        font-size: 28px;
-        font-weight: 900;
-        color: var(--blue);
-      }
-
-      .span-2 {
-        grid-column: 1 / -1;
-      }
-
-      .stages {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-        font-size: 11px;
-        color: var(--muted);
-        margin-top: 14px;
-        position: relative;
-      }
-
-      .stages::before {
-        content: "";
-        position: absolute;
-        top: 11px;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: #cce7d4;
-        border-radius: 999px;
-      }
-
-      .stage {
-        position: relative;
-        padding-top: 25px;
-        text-align: center;
-        font-weight: 700;
-      }
-
-      .stage::before {
-        content: "";
-        position: absolute;
-        top: 5px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: var(--green);
-        z-index: 1;
-      }
-
-      /* Conversion */
-      .conversion {
-        padding: 90px 0;
+      /* FORM */
+      .contact {
         background:
-          linear-gradient(135deg, rgba(6, 64, 39, 0.96), rgba(6, 43, 87, 0.94)),
-          url("https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?auto=format&fit=crop&w=1400&q=80")
-            center/cover;
-        color: white;
+          linear-gradient(
+            90deg,
+            rgba(245, 247, 250, 0.98),
+            rgba(245, 247, 250, 0.96)
+          ),
+          url("https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&w=1600&q=80")
+            left bottom/cover no-repeat;
+        padding: 84px 0;
       }
 
-      .conversion-grid {
+      .contact-grid {
         display: grid;
-        grid-template-columns: 0.9fr 1.1fr;
+        grid-template-columns: 0.82fr 1.18fr;
         gap: 54px;
         align-items: center;
       }
 
-      .conversion h2 {
-        color: white;
-        font-size: clamp(32px, 4vw, 48px);
-        line-height: 1.08;
+      .contact h2 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        line-height: 1.12;
+        color: var(--navy);
         letter-spacing: -0.04em;
         margin-bottom: 18px;
       }
 
-      .conversion p {
-        color: rgba(255, 255, 255, 0.82);
-        font-size: 18px;
-        margin-bottom: 28px;
-      }
-
-      .trust-list {
-        display: grid;
-        gap: 16px;
-        margin-top: 24px;
-      }
-
-      .trust-item {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        font-weight: 800;
-      }
-
-      .trust-item .icon-circle {
-        background: rgba(255, 255, 255, 0.14);
-        color: white;
-        width: 52px;
-        height: 52px;
-        font-size: 24px;
+      .contact p {
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-width: 420px;
       }
 
       .form-card {
-        background: white;
-        color: var(--text);
-        border-radius: 26px;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid rgba(220, 226, 234, 0.9);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
         padding: 34px;
-        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(10px);
       }
 
-      .form-row {
-        margin-bottom: 16px;
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .field.full {
+        grid-column: 1 / -1;
       }
 
       label {
         display: block;
+        font-size: 0.82rem;
         font-weight: 800;
-        color: var(--blue);
+        color: var(--navy);
         margin-bottom: 7px;
-        font-size: 14px;
       }
 
       input,
-      select {
+      select,
+      textarea {
         width: 100%;
-        border: 1px solid #d9e4e8;
-        border-radius: 12px;
-        padding: 14px;
+        border: 1px solid #cfd8e3;
+        border-radius: 9px;
+        padding: 14px 14px;
         font: inherit;
-        color: #23394f;
+        color: var(--text);
+        background: var(--white);
         outline: none;
-        background: #fbfdfe;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      textarea {
+        min-height: 92px;
+        resize: vertical;
       }
 
       input:focus,
-      select:focus {
+      select:focus,
+      textarea:focus {
         border-color: var(--green);
-        box-shadow: 0 0 0 4px rgba(31, 143, 58, 0.12);
+        box-shadow: 0 0 0 4px rgba(57, 181, 74, 0.14);
       }
 
-      .area-options {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-        margin-top: 10px;
-      }
-
-      .area-options button {
-        border: 1px solid #a9dcb8;
-        background: #f6fff8;
-        color: var(--green-dark);
-        border-radius: 10px;
-        padding: 10px 8px;
-        font-weight: 800;
-        cursor: pointer;
-        font-size: 12px;
-      }
-
-      .area-options button:hover {
-        background: var(--green);
-        color: white;
-      }
-
-      .form-card .btn {
+      .form-card .btn-primary {
         width: 100%;
-        margin-top: 8px;
-        font-size: 17px;
-        padding: 17px 20px;
+        margin-top: 20px;
       }
 
       .privacy {
-        color: #647487;
-        font-size: 12px;
+        margin-top: 14px;
         text-align: center;
-        margin-top: 13px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        font-weight: 600;
       }
 
-      /* Footer */
-      .footer {
-        background: var(--blue-dark);
-        color: rgba(255, 255, 255, 0.76);
-        padding: 48px 0 24px;
+      /* FOOTER */
+      footer {
+        background: var(--navy);
+        color: var(--white);
+        padding: 26px 0;
       }
 
       .footer-grid {
-        display: grid;
-        grid-template-columns: 1.4fr 0.8fr 0.8fr 1fr;
-        gap: 42px;
-        padding-bottom: 34px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-      }
-
-      .footer .logo {
-        color: white;
-        margin-bottom: 12px;
-        display: block;
-      }
-
-      .footer h4 {
-        color: white;
-        margin-bottom: 14px;
-      }
-
-      .footer a,
-      .footer li {
-        display: block;
-        margin-bottom: 8px;
-        color: rgba(255, 255, 255, 0.74);
-        list-style: none;
-        font-size: 14px;
-      }
-
-      .socials {
         display: flex;
-        gap: 10px;
-        margin-top: 18px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
       }
 
-      .socials span {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.32);
-        display: grid;
-        place-items: center;
-        font-size: 12px;
+      .footer-grid strong {
+        display: block;
+        margin-bottom: 4px;
       }
 
-      .copyright {
-        text-align: center;
-        padding-top: 22px;
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.58);
+      .footer-grid span,
+      .footer-grid p {
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .footer-link {
+        color: var(--green);
+        font-weight: 900;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
       }
 
       @media (max-width: 980px) {
-        .menu {
-          display: none;
+        .hero,
+        .hero .container {
+          min-height: auto;
         }
 
-        .hero-grid,
-        .split,
-        .conversion-grid {
+        .hero {
+          background:
+            linear-gradient(
+              180deg,
+              rgba(3, 18, 35, 0.96) 0%,
+              rgba(3, 18, 35, 0.82) 58%,
+              rgba(3, 18, 35, 0.5) 100%
+            ),
+            url("https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1400&q=80")
+              center/cover no-repeat;
+        }
+
+        .hero-content {
+          padding: 54px 0 44px;
+        }
+
+        .cards-3,
+        .cards-4,
+        .services-grid,
+        .contact-grid {
           grid-template-columns: 1fr;
         }
 
-        .hero-grid {
-          padding: 52px 0;
-        }
-
-        .hero-visual,
-        .tech-visual {
-          min-height: 460px;
-        }
-
-        .benefit-grid,
-        .footer-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .dashboard {
-          grid-template-columns: 1fr;
-        }
-
-        .screen {
-          grid-template-columns: 1fr;
-        }
-
-        .sidebar {
-          display: none;
-        }
-      }
-
-      @media (max-width: 620px) {
-        .container {
-          width: min(100% - 28px, var(--container));
-        }
-
-        .nav {
-          height: auto;
-          padding: 16px 0;
-          flex-wrap: wrap;
-        }
-
-        .btn.small {
-          width: 100%;
-        }
-
-        .hero h1 {
-          font-size: 38px;
-        }
-
-        .benefit-card {
-          grid-template-columns: 1fr;
-        }
-
-        .area-options {
+        .cards-4 {
           grid-template-columns: repeat(2, 1fr);
         }
 
-        .producer-card {
-          left: 18px;
-          right: 18px;
-          width: auto;
+        .section {
+          padding: 60px 0;
         }
 
-        .weather-station {
-          transform: scale(0.82);
-          transform-origin: left bottom;
+        .image-card {
+          min-height: 360px;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .container {
+          width: min(100% - 30px, var(--max));
+        }
+
+        .brand-mark {
+          margin-bottom: 24px;
+        }
+
+        .hero h1 {
+          font-size: 2.7rem;
+        }
+
+        .hero-benefits,
+        .cards-3,
+        .cards-4,
+        .benefit-strip,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-benefit,
+        .strip-item {
+          border-right: 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-benefit:last-child,
+        .strip-item:last-child {
+          border-bottom: 0;
+        }
+
+        .partner-badge {
+          width: 100%;
+        }
+
+        .form-card {
+          padding: 24px;
+        }
+
+        .btn {
+          width: 100%;
         }
       }
     </style>
   </head>
-
   <body>
-    <header class="header">
-      <div class="container nav">
-        <a class="logo" href="#"><span>Be</span>Weather</a>
-
-        <nav class="menu">
-          <a href="#beneficios">Benefícios</a>
-          <a href="#tecnologia">Tecnologia</a>
-          <a href="#integracao">Integração</a>
-          <a href="#orcamento">Orçamento</a>
-        </nav>
-
-        <a class="btn small" href="#orcamento">🎧 Falar com um consultor</a>
-      </div>
-    </header>
-
     <main>
       <section class="hero">
-        <div class="container hero-grid">
-          <div>
-            <span class="eyebrow">Precisão climática para o agronegócio</span>
-
-            <h1>
-              Chega de tentar acompanhar o clima manualmente. Tenha precisão na
-              palma da sua mão.
-            </h1>
-
-            <p>
-              Monitore o microclima da sua lavoura em tempo real com a Estação
-              Meteorológica BeWeather. Tome decisões seguras da preparação do
-              solo à colheita.
-            </p>
-
-            <a class="btn" href="#orcamento"
-              >📊 Quero Precisão na Minha Lavoura</a
-            >
-
-            <div class="badges">
-              <div class="badge">
-                <span class="icon-circle">⏱</span>
-                Monitoramento<br />em tempo real
-              </div>
-
-              <div class="badge">
-                <span class="icon-circle">☀</span>
-                Energia<br />solar
-              </div>
-
-              <div class="badge">
-                <span class="icon-circle">☁</span>
-                Dados em<br />nuvem
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-visual">
-            <div class="weather-station">
-              <div class="station-pole"></div>
-              <div class="station-top"></div>
-              <div class="sensor"></div>
-              <div class="solar"></div>
-              <div class="station-box"><span>Be</span>Weather</div>
-            </div>
-
-            <div class="producer-card">
-              <strong>App BeWeather</strong>
-              <div class="app-line"><span style="--w: 82%"></span></div>
-              <div class="app-line"><span style="--w: 64%"></span></div>
-              <div class="app-line"><span style="--w: 48%"></span></div>
-              <small>Chuva, vento, umidade e alertas em tempo real.</small>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="benefits" id="beneficios">
         <div class="container">
-          <div class="center">
-            <h2 class="section-title">
-              Transforme dados climáticos em lucro operacional.
-            </h2>
-            <p class="section-subtitle">
-              Informações precisas para reduzir custos, aumentar a eficiência e
-              proteger o potencial produtivo da sua lavoura.
-            </p>
-          </div>
-
-          <div class="benefit-grid">
-            <article class="benefit-card">
-              <div class="card-icon">⚗</div>
-              <div>
-                <h3>Pulverização Eficiente</h3>
-                <p>
-                  Saiba o momento exato para aplicar defensivos, evitando a
-                  deriva e o desperdício com base na umidade (ideal &gt; 60%) e
-                  vento (3 a 10 km/h).
-                </p>
-              </div>
-            </article>
-
-            <article class="benefit-card">
-              <div class="card-icon">💧</div>
-              <div>
-                <h3>Irrigação Inteligente</h3>
-                <p>
-                  Economize água e energia elétrica irrigando apenas quando a
-                  planta realmente precisa, baseado na evapotranspiração real.
-                </p>
-              </div>
-            </article>
-
-            <article class="benefit-card">
-              <div class="card-icon">🌱</div>
-              <div>
-                <h3>Plantio sem Replantio</h3>
-                <p>
-                  Acerte a janela de semeadura monitorando a umidade do solo e
-                  evite os custos dobrados de sementes e combustível.
-                </p>
-              </div>
-            </article>
-
-            <article class="benefit-card">
-              <div class="card-icon">🚜</div>
-              <div>
-                <h3>Logística de Máquinas</h3>
-                <p>
-                  Evite a compactação do solo sabendo exatamente quando a terra
-                  está pronta para o tráfego de maquinário pesado.
-                </p>
-              </div>
-            </article>
-          </div>
-
-          <div class="section-cta">
-            <a class="btn" href="#orcamento"
-              >🎧 FALAR COM UM CONSULTOR TÉCNICO</a
-            >
-          </div>
-        </div>
-      </section>
-
-      <section class="tech" id="tecnologia">
-        <div class="container split">
-          <div class="tech-visual">
-            <div class="weather-station">
-              <div class="station-pole"></div>
-              <div class="station-top"></div>
-              <div class="sensor"></div>
-              <div class="solar"></div>
-              <div class="station-box"><span>Be</span>Weather</div>
+          <div class="hero-content">
+            <div class="brand-mark">
+              <span class="brand-dot"></span>Austen Engenharia • Óleo e Gás
             </div>
-          </div>
-
-          <div>
-            <h2 class="section-title">
-              Tecnologia de ponta alimentada por energia solar.
-            </h2>
-
-            <p class="section-subtitle">
-              O equipamento BeWeather monitora 12 grandezas fundamentais para o
-              sucesso do agronegócio, incluindo:
-            </p>
-
-            <ul class="tech-list">
-              <li><span class="check">✓</span> Temperatura e Umidade do ar</li>
-              <li>
-                <span class="check">✓</span> Precipitação (Chuva) em tempo real
-              </li>
-              <li>
-                <span class="check">✓</span> Velocidade, Direção e Rajadas de
-                vento
-              </li>
-              <li>
-                <span class="check">✓</span> Irradiância Solar e
-                Evapotranspiração
-              </li>
-              <li>
-                <span class="check">✓</span> Pressão Atmosférica e Ponto de
-                Orvalho
-              </li>
-            </ul>
-
-            <div class="cloud-box">
-              <div class="cloud-icon">☁</div>
-              <strong
-                >Dados 100% em nuvem, acessíveis de qualquer lugar via App
-                BeWeather.</strong
-              >
-            </div>
-
-            <a class="btn" href="#orcamento"
-              >🎧 FALAR COM UM CONSULTOR TÉCNICO</a
-            >
-          </div>
-        </div>
-      </section>
-
-      <section class="integration" id="integracao">
-        <div class="container split">
-          <div>
-            <h2 class="section-title">
-              Gestão Agrícola + Inteligência Climática em um só lugar.
-            </h2>
-
-            <p class="section-subtitle">
-              A BeWeather é totalmente integrada à Plataforma eProdutor. Una o
-              monitoramento do microclima com o controle de custos, talhões e
-              produtividade da sua fazenda.
-            </p>
-
-            <div class="integration-card">
-              <small>Integração</small>
-              <strong><span>BeWeather</span> + <span>eProdutor</span></strong>
-            </div>
-          </div>
-
-          <div>
-            <div class="monitor">
-              <div class="screen">
-                <aside class="sidebar">
-                  <div class="side-logo">eProdutor</div>
-                  <div class="side-item">Início</div>
-                  <div class="side-item">Talhões</div>
-                  <div class="side-item">Clima</div>
-                  <div class="side-item">Monitoramento</div>
-                  <div class="side-item">Operações</div>
-                  <div class="side-item">Custos</div>
-                  <div class="side-item">Produtividade</div>
-                  <div class="side-item">Relatórios</div>
-                  <div class="side-item">Configurações</div>
-                </aside>
-
-                <div class="dashboard">
-                  <div class="dash-card">
-                    <h4>Chuvas (mm)</h4>
-                    <div class="bar-chart">
-                      <span class="bar" style="--h: 42%"></span>
-                      <span class="bar" style="--h: 70%"></span>
-                      <span class="bar" style="--h: 56%"></span>
-                      <span class="bar" style="--h: 88%"></span>
-                      <span class="bar" style="--h: 38%"></span>
-                      <span class="bar" style="--h: 78%"></span>
-                      <span class="bar" style="--h: 62%"></span>
-                      <span class="bar" style="--h: 92%"></span>
-                      <span class="bar" style="--h: 55%"></span>
-                    </div>
-                  </div>
-
-                  <div class="dash-card">
-                    <h4>Condições atuais</h4>
-                    <div class="weather-now">24,5 °C</div>
-                    <small>UR: 68%<br />Vento: 6 km/h<br />Direção: NE</small>
-                  </div>
-
-                  <div class="dash-card span-2">
-                    <h4>Desenvolvimento da Cultura</h4>
-                    <div class="stages">
-                      <div class="stage">Vegetativo</div>
-                      <div class="stage">Florescimento</div>
-                      <div class="stage">Enchimento</div>
-                      <div class="stage">Maturação</div>
-                    </div>
-                  </div>
-
-                  <div class="dash-card">
-                    <h4>Custos da Safra (R$/ha)</h4>
-                    <div class="metric">2.145,60</div>
-                    <small>+4,2% vs. período anterior</small>
-                  </div>
-
-                  <div class="dash-card">
-                    <h4>Produtividade (sc/ha)</h4>
-                    <div class="metric">68,4</div>
-                    <small>+7,8% vs. safra anterior</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="section-cta" style="margin-top: 72px">
-              <a class="btn" href="#orcamento"
-                >🎧 FALAR COM UM CONSULTOR TÉCNICO</a
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="conversion" id="orcamento">
-        <div class="container conversion-grid">
-          <div>
-            <h2>
-              Fale com um especialista e receba um orçamento personalizado.
-            </h2>
-
+            <h1>
+              Engenharia e Manutenção em Óleo e Gás com Previsibilidade Real de
+              Custo e Prazo.
+            </h1>
             <p>
-              Nossa equipe está pronta para entender as necessidades da sua
-              fazenda e indicar a melhor solução para você.
+              Fabricação, manutenção de ativos e engenharia de passagem de dutos
+              para garantir uma expansão rápida, segura e contínua da sua
+              operação.
             </p>
+            <a class="btn btn-primary" href="#formulario"
+              >Solicitar Consultoria Técnica <span>→</span></a
+            >
+            <div class="support-line">
+              <span class="check">✓</span>Resposta rápida da nossa equipe de
+              engenharia.
+            </div>
 
-            <div class="trust-list">
-              <div class="trust-item">
-                <span class="icon-circle">🎧</span>
-                Atendimento técnico consultivo e especializado
+            <div class="hero-benefits" aria-label="Benefícios principais">
+              <div class="hero-benefit">
+                <div class="icon">↗</div>
+                <strong>Previsibilidade</strong>
               </div>
-
-              <div class="trust-item">
-                <span class="icon-circle">📋</span>
-                Orçamento personalizado conforme sua realidade
+              <div class="hero-benefit">
+                <div class="icon">♢</div>
+                <strong>Segurança</strong>
               </div>
-
-              <div class="trust-item">
-                <span class="icon-circle">🛡</span>
-                Suporte especializado antes e após a instalação
+              <div class="hero-benefit">
+                <div class="icon">⚙</div>
+                <strong>Execução em Campo</strong>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light">
+        <div class="container center">
+          <h2 class="section-title">
+            Desde 1978 sendo o parceiro estratégico dos maiores players do setor
+            no Brasil.
+          </h2>
+
+          <div class="cards-3">
+            <article class="card metric-card">
+              <div class="round-icon">👥</div>
+              <h3>+1 Milhão</h3>
+              <p>de atendimentos em território nacional.</p>
+            </article>
+            <article class="card metric-card">
+              <div class="round-icon">🔥</div>
+              <h3>+150 Mil</h3>
+              <p>clientes atendidos no recebimento de gás.</p>
+            </article>
+            <article class="card metric-card">
+              <div class="round-icon">📅</div>
+              <h3>Desde 1978</h3>
+              <p>experiência consolidada no setor.</p>
+            </article>
+          </div>
+
+          <div class="partners">
+            <div class="partners-label">Parceiro Homologado</div>
+            <div class="partner-badges">
+              <div class="partner-badge green">PETROBRAS</div>
+              <div class="partner-badge">GASMIG</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container center">
+          <p class="eyebrow">Problemas que resolvemos</p>
+          <h2 class="section-title">
+            Elimine a Imprevisibilidade e Garanta a Produção Contínua.
+          </h2>
+          <p class="section-copy">
+            No setor de Óleo e Gás, uma parada não programada ou um erro de
+            execução custam milhões. A Austen resolve as dores que tiram o sono
+            dos gestores:
+          </p>
+
+          <div class="cards-4">
+            <article class="card solution-card">
+              <div class="round-icon">💵</div>
+              <h3>Previsibilidade Financeira</h3>
+              <p>
+                Chega de estouros de orçamento e custos imprevistos em
+                contratos.
+              </p>
+            </article>
+            <article class="card solution-card">
+              <div class="round-icon">🛡</div>
+              <h3>Segurança Operacional</h3>
+              <p>
+                Execução rigorosa para eliminar riscos e garantir conformidade
+                com todas as normas.
+              </p>
+            </article>
+            <article class="card solution-card">
+              <div class="round-icon">☾</div>
+              <h3>Dormir Tranquilo</h3>
+              <p>
+                Você terá um parceiro que resolve problemas sem escalá-los para
+                a diretoria.
+              </p>
+            </article>
+            <article class="card solution-card">
+              <div class="round-icon">⚙</div>
+              <h3>Zero Retrabalho</h3>
+              <p>
+                Capacidade técnica aplicada diretamente no campo, não apenas no
+                papel.
+              </p>
+            </article>
+          </div>
+
+          <div class="solution-cta">
+            <a class="btn btn-secondary" href="#formulario"
+              >Falar com a Engenharia <span>→</span></a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light">
+        <div class="container">
+          <div class="services-grid">
+            <div
+              class="image-card"
+              role="img"
+              aria-label="Equipe técnica em operação industrial de óleo e gás"
+            ></div>
+            <div>
+              <p class="eyebrow">Serviços e diferenciais</p>
+              <h2 class="section-title">
+                Excelência em Engenharia e Manutenção de Ativos.
+              </h2>
+
+              <div class="features">
+                <article class="feature">
+                  <div class="round-icon">👥</div>
+                  <div>
+                    <h3>Mentalidade de Parceiro Estratégico</h3>
+                    <p>
+                      Não somos apenas um fornecedor; pensamos na redução de
+                      custos do seu negócio.
+                    </p>
+                  </div>
+                </article>
+                <article class="feature">
+                  <div class="round-icon">🧰</div>
+                  <div>
+                    <h3>Capacidade Técnica Aplicada</h3>
+                    <p>
+                      Engenharia prática focada em performance e eficiência
+                      real.
+                    </p>
+                  </div>
+                </article>
+                <article class="feature">
+                  <div class="round-icon">◎</div>
+                  <div>
+                    <h3>Experiência Consolidada</h3>
+                    <p>
+                      Responsável pelo fornecimento de gás do estado de Minas
+                      Gerais através da Gasmig.
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="benefit-strip">
+            <div class="strip-item">
+              <span class="strip-icon">◴</span>Menos paradas
+            </div>
+            <div class="strip-item">
+              <span class="strip-icon">↗</span>Mais eficiência
+            </div>
+            <div class="strip-item">
+              <span class="strip-icon">◎</span>Mais previsibilidade
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="formulario">
+        <div class="container contact-grid">
+          <div>
+            <p class="eyebrow">Consultoria técnica</p>
+            <h2>
+              Pronto para estruturar operações locais eficientes e seguras?
+            </h2>
+            <p>
+              Preencha os dados abaixo para receber um diagnóstico técnico da
+              nossa equipe de especialistas e entender como podemos otimizar
+              seus custos operacionais.
+            </p>
           </div>
 
           <form class="form-card" action="#" method="post">
-            <div class="form-row">
-              <label for="nome">Nome Completo</label>
-              <input
-                id="nome"
-                name="nome"
-                type="text"
-                placeholder="Digite seu nome completo"
-                required
-              />
-            </div>
-
-            <div class="form-row">
-              <label for="whatsapp">WhatsApp (com DDD)</label>
-              <input
-                id="whatsapp"
-                name="whatsapp"
-                type="tel"
-                placeholder="(00) 00000-0000"
-                required
-              />
-            </div>
-
-            <div class="form-row">
-              <label for="email">E-mail Corporativo/Produtor</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="seu@email.com.br"
-                required
-              />
-            </div>
-
-            <div class="form-row">
-              <label for="area">Tamanho da Área (Hectares)</label>
-              <select id="area" name="area" required>
-                <option value="">Selecione uma opção</option>
-                <option value="ate-100">Até 100</option>
-                <option value="100-500">100 a 500</option>
-                <option value="500-2000">500 a 2.000</option>
-                <option value="acima-2000">Acima de 2.000</option>
-              </select>
-
-              <div class="area-options" aria-hidden="true">
-                <button type="button">Até 100</button>
-                <button type="button">100 a 500</button>
-                <button type="button">500 a 2.000</button>
-                <button type="button">Acima de 2.000</button>
+            <div class="form-grid">
+              <div class="field">
+                <label for="nome">Nome Completo</label>
+                <input
+                  id="nome"
+                  name="nome"
+                  type="text"
+                  placeholder="Seu nome"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="email">E-mail Corporativo</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="nome@empresa.com.br"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="telefone">Telefone</label>
+                <input
+                  id="telefone"
+                  name="telefone"
+                  type="tel"
+                  placeholder="(00) 00000-0000"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="empresa">Empresa</label>
+                <input
+                  id="empresa"
+                  name="empresa"
+                  type="text"
+                  placeholder="Nome da empresa"
+                  required
+                />
+              </div>
+              <div class="field full">
+                <label for="cargo">Cargo</label>
+                <input
+                  id="cargo"
+                  name="cargo"
+                  type="text"
+                  placeholder="Seu cargo"
+                />
+              </div>
+              <div class="field full">
+                <label for="necessidade"
+                  >Qual a sua principal necessidade hoje?</label
+                >
+                <textarea
+                  id="necessidade"
+                  name="necessidade"
+                  placeholder="Conte brevemente sobre o desafio da sua operação"
+                ></textarea>
               </div>
             </div>
-
-            <div class="form-row">
-              <label for="cultura">Principal Cultura</label>
-              <input
-                id="cultura"
-                name="cultura"
-                type="text"
-                placeholder="Soja, Milho, Algodão, Café..."
-              />
-            </div>
-
-            <button class="btn" type="submit">
-              ✈ Solicitar Orçamento Grátis
+            <button class="btn btn-primary" type="submit">
+              Enviar Pedido de Consultoria <span>→</span>
             </button>
-
             <div class="privacy">
-              🔒 Seus dados estão seguros. Não compartilhamos suas informações.
+              ✓ Após o envio, entraremos em contato em até 24h.
             </div>
           </form>
         </div>
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div>
-            <a class="logo" href="#"><span>Be</span>Weather</a>
-            <p>Tecnologia climática para decisões mais seguras no campo.</p>
-
-            <div class="socials" aria-label="Redes sociais">
-              <span>f</span>
-              <span>ig</span>
-              <span>yt</span>
-              <span>in</span>
-            </div>
-          </div>
-
-          <div>
-            <h4>Navegação</h4>
-            <a href="#beneficios">Benefícios</a>
-            <a href="#tecnologia">Tecnologia</a>
-            <a href="#integracao">Integração</a>
-            <a href="#orcamento">Orçamento</a>
-          </div>
-
-          <div>
-            <h4>Institucional</h4>
-            <a href="#">Quem somos</a>
-            <a href="#">Blog</a>
-            <a href="#">Política de Privacidade</a>
-            <a href="#">Termos de Uso</a>
-          </div>
-
-          <div>
-            <h4>Contato</h4>
-            <ul>
-              <li>☎ (43) 9 9999-9999</li>
-              <li>✉ contato@beweather.com.br</li>
-              <li>📍 Londrina - PR</li>
-            </ul>
-          </div>
+    <footer>
+      <div class="container footer-grid">
+        <div>
+          <strong>Austen Engenharia</strong>
+          <p>
+            Desde 1978 entregando soluções para os principais players do setor.
+          </p>
         </div>
-
-        <div class="copyright">
-          © 2024 BeWeather. Todos os direitos reservados.
-        </div>
+        <a
+          class="footer-link"
+          href="https://austen.com.br"
+          target="_blank"
+          rel="noopener"
+          >🌐 austen.com.br</a
+        >
       </div>
     </footer>
   </body>
